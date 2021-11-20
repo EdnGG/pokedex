@@ -1,12 +1,35 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/" v-if="userIsActive">Home</router-link> |
+      <router-link to="/signup" v-if="!userIsActive">Sign up</router-link> |
+      <router-link to="/login" v-if="!userIsActive">Login</router-link> 
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+  // @ is an alias to /src
+  import { mapState, mapActions, mapGetters } from 'vuex'
+
+  export default {
+    name: 'App',
+      data() {
+        return{
+          // user: {}
+        }
+      },
+      computed:{
+        ...mapState(["user"]),
+        ...mapGetters(["userIsActive"])
+      },
+      methods:{
+        ...mapActions(["logoutUser"]),
+      },
+  }
+
+</script>
 
 <style>
 #app {

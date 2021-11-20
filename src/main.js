@@ -5,8 +5,22 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+import { auth } from './firebase'
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    const userLoged = {
+      user: user.email,
+      uid: user.uid
+    }
+    store.dispatch('userActive', userLoged)
+  } else {
+    store.dispatch('userActive', user)
+  }
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+})
+
