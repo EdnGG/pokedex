@@ -1,9 +1,6 @@
 <template>
   <div class="signup">
     <h1>Sign up</h1>
-    <!-- <h2>
-      Bookmark Pokemons and store them locally in Vuex (requires login). +10
-    </h2> -->
       <form class="form" @submit.prevent="createUser({email, password})">
       <input type="text" placeholder="email" v-model="email" />
       <input type="password" placeholder="password" v-model="password" />
@@ -28,6 +25,7 @@ export default {
     return {
       email: "",
       password: "",
+      repeatPassword: "",
     };
   },
   methods: {
@@ -36,7 +34,7 @@ export default {
   computed: {
     ...mapState(["user", "error"]),
     validingPassword() {
-      return this.password === this.repeatPassword && this.password.trim() !== '' > 0&& this.password.length > 5;
+      return this.password === this.repeatPassword && this.password.trim() !== '' > 0 && this.password.length > 5;
     },
   },
 };
