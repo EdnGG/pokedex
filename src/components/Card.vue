@@ -10,12 +10,9 @@
       </div>
       <div v-if="openStats" class="details">
         <h4>
-          <!-- <b>{{ species }}</b> -->
           <b>Weight: {{ weight }}</b><br>
           <b>Size: {{ size }}</b>
-          <!-- <b> aaa  {{ abilities.name[0] }}</b>  -->
         </h4>
-        <!-- <p> {{ types[0]}}</p> -->
       </div>
       <div>
         <button @click="openStatss">Details</button>
@@ -52,8 +49,6 @@ export default {
     ...mapActions(["logoutUser", "getPockemons"]),
     openStatss() {
       this.openStats = !this.openStats;
-      // this.openStats = true;
-      // this.$emit("custom", this.pokemon);
     },
     getImage() {
       axios

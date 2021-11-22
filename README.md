@@ -1,5 +1,6 @@
 # pockedex
 
+### Pockedex using vue, vuex, firebase
 ## Project setup
 ```
 npm install
