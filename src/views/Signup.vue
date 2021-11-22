@@ -1,10 +1,10 @@
 <template>
-  <div class="about">
+  <div class="signup">
     <h1>Sign up</h1>
     <!-- <h2>
       Bookmark Pokemons and store them locally in Vuex (requires login). +10
     </h2> -->
-      <form @submit.prevent="createUser({email, password})">
+      <form class="form" @submit.prevent="createUser({email, password})">
       <input type="text" placeholder="email" v-model="email" />
       <input type="password" placeholder="password" v-model="password" />
       <input
@@ -41,4 +41,29 @@ export default {
   },
 };
 </script>
+
+<style>
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.signup {
+  width: 100%;
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
 

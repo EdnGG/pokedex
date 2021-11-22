@@ -1,8 +1,8 @@
 <template>
-  <div class="about">
+  <div class="login">
     <h1>Login</h1>
    
-      <form @submit.prevent="loginUser({email, password})">
+      <form class="form" @submit.prevent="loginUser({email, password})">
       <input type="text" placeholder="email" v-model="email" />
       <input type="password" placeholder="password" v-model="password" />
       <button 
@@ -24,7 +24,6 @@ export default {
     return {
       email: "",
       password: "",
-      repeatPassword: "",
     };
   },
   methods: {
@@ -32,10 +31,31 @@ export default {
   },
   computed: {
     ...mapState(["user", "error"]),
-    // validingInputs() {
-    //   return this.email === '' && this.password.trim() !== '' > 0&& this.password.length > 5;
-    // },
   },
 };
 </script>
+
+<style>
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.login {
+  width: 100%;
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
 
