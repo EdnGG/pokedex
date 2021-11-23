@@ -44,10 +44,10 @@ input {
   border: 1px solid #ccc;
 }
 .login {
-  width: 100%;
+  width: 70%;
   max-width: 500px;
   margin: 50px auto;
-  padding: 20px;
+  padding: 50px;
   border-radius: 5px;
   background: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);

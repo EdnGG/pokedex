@@ -1,10 +1,9 @@
 <template>
   <div class="container home">
-    <div class="nav">
-    <h1>Welcome: {{ user.user }}</h1>
-    <button @click="logoutUser">Sign Out</button>
+    <!-- <div class="nav"> -->
+    
 
-    </div>
+    <!-- </div> -->
     <div class="search">
       
     <Search @custom="receiveChange" />
@@ -100,7 +99,8 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px;
+  padding: 40px;
+  margin: 40px;
 }
 .cards {
   display: flex;

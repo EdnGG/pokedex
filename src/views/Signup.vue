@@ -41,6 +41,18 @@ export default {
 </script>
 
 <style>
+button{
+  background: #e78585;
+  border-radius: 1rem;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 10px;
+  cursor: pointer;
+}
 input {
   width: 100%;
   padding: 10px;
@@ -50,10 +62,10 @@ input {
 }
 
 .signup {
-  width: 100%;
+  width: 70%;
   max-width: 500px;
   margin: 50px auto;
-  padding: 20px;
+  padding: 50px;
   border-radius: 5px;
   background: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
