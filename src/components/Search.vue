@@ -1,6 +1,6 @@
 <template>
   <div class="search">
-    search: <input class="input" type="text" @keyup="sendChange" />
+    <input placeholder="Search pockemon..." class="input" type="text" @keyup="sendChange" />
   </div>
 </template>
 
@@ -34,6 +34,6 @@ export default {
   background-position: 10px 10px;
   background-repeat: no-repeat;
   padding-left: 40px;
-  border-radius: 5px;
+  border-radius: 1rem;
 }
 </style>

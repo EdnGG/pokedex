@@ -7,31 +7,25 @@
           <b>{{ pokemon.name }}</b>
         </h4>
         <!-- iterar types -->
-        <p>Type: {{ types }}</p>
+        <p>Type: {{ allTypes }}</p>
       </div>
-      <div v-if="openStats" class="details">
-        
-      </div>
+      <div v-if="openStats" class="details"></div>
       <div>
         <button @click="showStats">Details</button>
       </div>
     </div>
 
     <!-- Modal -->
-    <!-- <div v-if="showModal" id="myModal" class="modal"> -->
-      <div v-if="showModal" id="myModal" class="modal">
+    <div v-if="showModal" id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
         <span @click="closeModal" class="close">&times;</span>
         <p>Weight: {{ weight }}</p>
         <p>Size: {{ size }}</p>
-        
         <p>Abilities: {{ ability }}</p>
-        <!-- </p> -->
       </div>
     </div>
     <!-- Ends Modal -->
-
   </div>
 </template>
 
@@ -46,41 +40,49 @@ export default {
       openStats: false,
       showModal: false,
       imagePokemon: "",
-      types: "",
-
+      types: [],
+      allTypes: "",
+      allAbilities: "",
       species: "",
       weight: "",
       size: "",
       abilities: "", // Arreglo de objetos
-      ability: ""
+      ability: "",
       // gender: ""
     };
   },
   computed: {
     ...mapState(["user", "pokemons", "urlId"]),
     ...mapGetters(["userIsActive"]),
-    // getAbilyties(){
-    //   return this.abilities.forEach( el => 
-    //   el.ability.name
-    //   )
-    // }
   },
   methods: {
     ...mapActions(["logoutUser", "getPockemons"]),
-    getAbilyties(){
-      console.log('this.abilities: ', this.abilities)
-      console.log(this.abilities)
-      let habilidades = []
-      for(let element in this.abilities){
-        habilidades.push(this.abilities[element].ability.name.split('-')[0])
+    getTypes() {
+      this.types.map((el) => {
+        if (el.length > 0) {
+          return (this.allTypes += `${el}, `);
+        } else {
+          return (this.allTypes += `${el}`);
+        }
+      });
+    },
+    getAbilyties() {
+      // this.abilities.map((el) => {
+      //   return el.ability.name
+      //   if (el.length > 0) {
+      //     return (this.allAbilities += `${el}, `);
+      //   } else {
+      //     return (this.allAbilities += `${el}`);
+      //   }
+      // });
+     
+      let habilidades = [];
+      for (let element in this.abilities) {
+        habilidades.push(this.abilities[element].ability.name.split("-")[0]);
       }
-      console.log('habilidades : ', habilidades)
-      return this.ability = habilidades
-    
-      },
-      
-    // },
-    closeModal () {
+      return (this.ability = habilidades);
+    },
+    closeModal() {
       this.showModal = false;
     },
     showStats() {
@@ -96,8 +98,8 @@ export default {
           this.weight = res.data.weight;
           this.size = res.data.height;
           this.abilities = res.data.abilities;
-          console.log('res: ', res.data.abilities)
-          console.log('ability: ', this.abilities)
+          // console.log('res: ', res.data.abilities)
+          // console.log('ability: ', this.abilities)
 
           // console.log("species: ", this.species);
           // console.log("weight: ", this.weight);
@@ -108,14 +110,14 @@ export default {
             return type.type.name;
           });
         })
-        .catch((err) => reject(err));
+        .catch((err) => console.log('Error: ', err));
     },
   },
   mounted() {
     this.getImage();
     // this.getAbilyties();
   },
-  created(){
+  created() {
     // this.getAbilyties();
   },
   beforeMount() {
@@ -123,6 +125,7 @@ export default {
   },
   beforeUpdate() {
     this.getAbilyties();
+    this.getTypes();
   },
   // }
 };
@@ -138,9 +141,9 @@ export default {
   justify-content: center;
   /* display: none; Hidden by default */
   /* Stay in place */
-  position: fixed; 
+  position: fixed;
   /* Sit on top */
-  z-index: 1; 
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%; /* Full width */
