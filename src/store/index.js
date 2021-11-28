@@ -40,13 +40,13 @@ export default new Vuex.Store({
   },
   actions: {
     updateGetPockemons({ commit }, payload) {
-      console.log('payload actions: ', payload)
+      // console.log('payload actions: ', payload)
       commit('updateSetPokemons', payload)
     },
     async getPockemons({ commit }, payload) {
 
       try {
-        console.log('payload: ', payload)
+        // console.log('payload: ', payload)
         if (payload) {
           const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${payload.offset}&limit=${payload.limit}`)
           const data = await response.json()
@@ -65,7 +65,7 @@ export default new Vuex.Store({
           const results = data.results
           const prev = data.prev
           const next = data.next
-          console.log('data : ', data.next)
+          console.log('data.next from Vuex : ', data.next)
           const id = results.reduce((acc, cur, inx) => acc = { ...acc, [cur.name]: inx + 1 }, {})
           const pokemosRes = {
             results,

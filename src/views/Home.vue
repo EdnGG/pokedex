@@ -23,6 +23,7 @@
       <div class="footer">
         <div class="footer--buttons">
           <button @click="prev">Prev</button>
+          {{ nextPage}}
           <button @click="getNextPage()">Next</button>
         </div>
       </div>
@@ -50,7 +51,6 @@ export default {
       showNextPokemons: true,
       allPokes: [],
       search: "",
-      currentPage: 1,
       nextPage: this.next,
       prevPage: "",
     };
@@ -58,6 +58,12 @@ export default {
   computed: {
     ...mapState(["user", "pokemons", "urlId", "next"]),
     ...mapGetters(["userIsActive"]),
+
+    filterByName2() {
+      return this.allPokes.filter((pokemon) => {
+        return pokemon.name.toLowerCase().includes(this.search.toLowerCase());
+      });
+    },
 
     filterByName() {
       return this.pokemons.filter((pokemon) => {
@@ -69,14 +75,18 @@ export default {
     ...mapActions(["logoutUser", "getPockemons"]),
     getNextPage() {
       this.showNextPokemons = false;
+      console.log('this.nextPage antes de axios: ', this.nextPage);
       axios.get(this.nextPage).then((response) => {
 
-        console.log("response: ", response);
-        const res = response.data.results;
+        // console.log("response: ", response);
+        // const res = response.data.results;
+        console.log('response.data: ', response.data)
         this.nextPage = response.data.next;
-        console.log('jjj:', this.nextPage);
-        this.allPokes = this.allPokes.concat(res);
+        console.log('this.nextPage despues de axios:', this.nextPage);
+        // this.allPokes = this.allPokes.concat(res);
+        this.allPokes.push(response.data.results);
       });
+
     },
     prev() {},
     receiveChange(event) {
@@ -85,6 +95,7 @@ export default {
   },
   created() {
     this.getPockemons();
+    console.log('this.nextPage from created hook: ', this.nextPage);
   },
   beforeUpdate() {
     // necesito actualizar el valor de this.nextPage
