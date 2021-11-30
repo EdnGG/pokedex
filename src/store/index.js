@@ -21,8 +21,9 @@ export default new Vuex.Store({
       console.log('payload mutations ', payload)
       // state.pokemons = state.pokemons.push(payload.newPokemons)
       state.pokemons = payload.newPokemons
-      // state.prev = payload.prev
-      // state.next = payload.next
+      state.prev = payload.prev
+      state.next = payload.next
+      console.log(' next from mutations: ', state.next)
     },
     setPokemons(state, payload) {
 
@@ -60,12 +61,12 @@ export default new Vuex.Store({
           commit('setPokemons', pokemosRes1)
 
         } else {
-          const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
+          const res = await fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=20')
           const data = await res.json()
           const results = data.results
           const prev = data.prev
           const next = data.next
-          console.log('data.next from Vuex : ', data.next)
+          console.log('data.next from vuex action : ', next)
           const id = results.reduce((acc, cur, inx) => acc = { ...acc, [cur.name]: inx + 1 }, {})
           const pokemosRes = {
             results,

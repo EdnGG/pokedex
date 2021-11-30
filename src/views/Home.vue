@@ -4,6 +4,9 @@
       <div class="search">
         <Search @custom="receiveChange" />
       </div>
+
+
+      <!-- <div class="cards"> -->
       <div class="cards" v-if="showNextPokemons">
         <Card
           v-for="pokemon in filterByName"
@@ -14,7 +17,7 @@
 
       <div class="cards" v-else>
         <Card
-          v-for="pokemon in allPokes"
+          v-for="pokemon in filterByNamePokes"
           :key="pokemon.name"
           :pokemon="pokemon"
         />
@@ -51,7 +54,7 @@ export default {
       showNextPokemons: true,
       allPokes: [],
       search: "",
-      nextPage: this.next,
+      nextPage: "",
       prevPage: "",
     };
   },
@@ -59,33 +62,44 @@ export default {
     ...mapState(["user", "pokemons", "urlId", "next"]),
     ...mapGetters(["userIsActive"]),
 
-    filterByName2() {
-      return this.allPokes.filter((pokemon) => {
+    filterByName() {
+      return this.pokemons.filter((pokemon) => {
         return pokemon.name.toLowerCase().includes(this.search.toLowerCase());
       });
     },
-
-    filterByName() {
-      return this.pokemons.filter((pokemon) => {
+    filterByNamePokes() {
+      return this.allPokes.filter((pokemon) => {
         return pokemon.name.toLowerCase().includes(this.search.toLowerCase());
       });
     },
   },
   methods: {
     ...mapActions(["logoutUser", "getPockemons"]),
-    getNextPage() {
-      this.showNextPokemons = false;
+    async getNextPage() {
+      try {
+        this.showNextPokemons = false;
+      // this.nextPage llega como undefined
       console.log('this.nextPage antes de axios: ', this.nextPage);
-      axios.get(this.nextPage).then((response) => {
+       await axios.get(this.next).then((response) => {
 
         // console.log("response: ", response);
         // const res = response.data.results;
-        console.log('response.data: ', response.data)
-        this.nextPage = response.data.next;
-        console.log('this.nextPage despues de axios:', this.nextPage);
+        // console.log('response.data: ', response.data)
+        // this.nextPage = ''
+        const res = response.data.next;
+        this.nextPage = res 
+        console.log('this.nextPage dentro de axios: ', this.nextPage);
+        // console.log('this.nextPage dentro de axios:', this.nextPage);
         // this.allPokes = this.allPokes.concat(res);
         this.allPokes.push(response.data.results);
       });
+      console.log('this.nextPage despues de axios: ', this.nextPage);
+        
+      } catch (error) {
+        console.log('Error: ', error);
+      }
+      
+      
 
     },
     prev() {},
@@ -95,12 +109,16 @@ export default {
   },
   created() {
     this.getPockemons();
-    console.log('this.nextPage from created hook: ', this.nextPage);
+    // console.log('this.nextPage from created hook: ', this.nextPage);
   },
   beforeUpdate() {
     // necesito actualizar el valor de this.nextPage
-    this.nextPage = this.next;
-    console.log("this.nextPage from beforeUpdate: ", this.nextPage);
+    // this.nextPage = this.next;
+    // console.log("this.nextPage from beforeUpdate: ", this.nextPage);
+  },
+  updated() {
+    console.log("this.nextPage from updated: ", this.nextPage);
+    // this.showNextPokemons = true;
   },
 };
 </script>

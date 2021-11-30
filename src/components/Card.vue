@@ -93,18 +93,12 @@ export default {
       axios
         .get(this.pokemon.url)
         .then((res) => {
+          // console.log('pokemon.url: ', this.pokemon.url);
           this.imagePokemon = res.data.sprites.front_default;
           this.species = res.data.species.name;
           this.weight = res.data.weight;
           this.size = res.data.height;
           this.abilities = res.data.abilities;
-          // console.log('res: ', res.data.abilities)
-          // console.log('ability: ', this.abilities)
-
-          // console.log("species: ", this.species);
-          // console.log("weight: ", this.weight);
-          // console.log("size: ", this.size);
-          // console.log("abilities: ", this.abilities[0].ability.name);
           // this.gender = res.data.gender
           this.types = res.data.types.map((type) => {
             return type.type.name;
@@ -114,10 +108,11 @@ export default {
     },
   },
   mounted() {
-    this.getImage();
+    // this.getImage();
     // this.getAbilyties();
   },
   created() {
+    this.getImage()
     // this.getAbilyties();
   },
   beforeMount() {
@@ -126,8 +121,15 @@ export default {
   beforeUpdate() {
     this.getAbilyties();
     this.getTypes();
+
+    // this.getImage();
   },
-  // }
+  updated() {
+    // this.getAbilyties();
+    // this.getTypes();
+
+    // this.getImage();
+  },
 };
 </script>
 
